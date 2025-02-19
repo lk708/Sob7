@@ -1,0 +1,44 @@
+seats_available = 5 
+booked_seats = 0 
+bookings = [] 
+
+
+while booked_seats < seats_available:  # Runs until seats are full
+    print(f" Seats available: {seats_available - booked_seats}")
+
+    book = input("Do you want to book a ticket? (yes/no): ").lower()
+
+    if book == "yes":
+        try:
+            tickets_needed = int(input("How many tickets do you need? "))
+
+            if tickets_needed <= 0:  # Prevents invalid inputs
+                print("Invalid number of tickets. Please enter a positive number.")
+                continue
+
+            if tickets_needed <= (seats_available - booked_seats):
+                booked_seats += tickets_needed
+                name = input("Enter your name for the booking: ")
+                bookings.append([name, tickets_needed])  # Store booking details as a list
+                print(f"{tickets_needed} ticket(s) booked successfully for {name}!")
+            else:
+                print("Not enough seats available. Try a lower number.")
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+
+    elif book == "no":
+        print("Exiting booking system. See you next time!")
+        break  
+
+    else:
+        print("Invalid input. Please enter 'yes' or 'no'.")
+
+if booked_seats > 0:
+    print("Booking Receipt")
+    print("----------------")
+    for booking in bookings:
+        print(f"{booking[0]} booked {booking[1]} ticket(s)")
+    print(f"Total Tickets Booked: {booked_seats}")
+
+if booked_seats == seats_available:
+    print("Cinema is fully booked. No more tickets available.")
